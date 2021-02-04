@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Login Forrm</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script> -->
+
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script> -->
+
+
+<style>
+  input {
+        position: relative;
+        width: 150px; height: 20px;
+        color: white;
+    }
+
+    input:before {
+        position: absolute;
+        top: 3px; left: 3px;
+        content: attr(data-date);
+        display: inline-block;
+        color: black;
+    }
+
+    input::-webkit-datetime-edit, input::-webkit-inner-spin-button, input::-webkit-clear-button {
+        display: none;
+    }
+
+    input::-webkit-calendar-picker-indicator {
+        position: absolute;
+        top: 3px;
+        right: 0;
+        color: black;
+        opacity: 1;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Registration form</h2>
+  <form  method="POST">
+    <div class="form-group">
+        <label for="name" >Name</label>
+      <input type="text" class="form-control" id="name" placeholder="Enter Your Name" name="name" required>
+
+<!--
+      <label for="dob" >DOB:</label>
+
+    <input type="date"  id="datepicker"  class="form-control" data-date="" data-date-format="DD/MM/YYYY" value="2020-12-30"  name="dob">
+ -->
+
+
+    <label for="dob" >DOB:</label>
+    <input type="date"   id="txtDate"  class="form-control" data-date="" data-date-format="DD/MM/YYYY" value="2020-12-30"  name="dob">
+    <span class="error" id="lblError"></span>
+    <br />
+
+    <input type="button" id="btnValidate" value="Validate" onclick="return ValidateDOB()" style="
+    color: currentcolor;
+    width: -webkit-fill-available;
+    height: initial;
+"/>
+<label for="mobile_no" >Mobile NO :</label>
+<input type="text" class="form-control" id="mobile_no" maxlength="10" placeholder="Enter Mobile No" name="mobile_no" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57" >
+
+
+
+      <label for="pan_no" >PAN NO :</label>
+      <input type="text" class="form-control" id="pan_no" maxlength="10" placeholder="Enter PAN No" name="pan_no" >
+
+      <label for="address" >Address :</label>
+      <input type="text" class="form-control" id="address" placeholder="Enter Address here" name="address" >
+
+      <label for="city" >City :</label>
+      <input type="text" class="form-control" id="city" placeholder="Enter City here" name="city" >
+
+
+      <label for="state" >State :</label>
+      <input type="text" class="form-control" id="state" placeholder="Enter State here" name="state" >
+
+
+    </div>
+    <!-- <div class="form-group">
+      <label for="pwd">Password:</label>
+      <input type="password" class="form-control" id="pwd" placeholder="Enter password" maxlength="8" name="pwd" >
+    </div> -->
+    <!-- <div class="checkbox">
+      <label><input type="checkbox" name="remember"> Remember me</label>
+    </div> -->
+    <button type="submit" name="first_page" class="btn btn-default">Submit</button>
+  </form>
+</div>
+
+</body>
+<script>
+  $("input").on("change", function() {
+        this.setAttribute(
+            "data-date",
+            moment(this.value, "YYYY-MM-DD")
+            .format( this.getAttribute("data-date-format") )
+        )
+    }).trigger("change")
+
+    // $(function()
+    //      {
+    //       $( "#datepicker" ).datepicker(
+    //          {
+    //             maxDate: new Date() ,
+    //             todayHighlight: true,
+    //             dateFormat: 'dd/mm/yy'
+    //         });
+    //       });
+
+
+    function ValidateDOB() {
+      console.log("insode valdiateDOB");
+        var lblError = document.getElementById("lblError");
+
+        //Get the date from the TextBox.
+        var dateString = document.getElementById("txtDate").value;
+        var regex = /(((0|1)[0-9]|2[0-9]|3[0-1])\/(0[1-9]|1[0-2])\/((19|20)\d\d))$/;
+        console.log("dateString",dateString);
+        console.log("new Date() :",new Date());
+        let date = new Date().toISOString().split('T')[0];
+        console.log('raw date: ' + date);
+        console.log('formatted date: ' + tranformDate(date));
+
+
+
+        //----------
+            function tranformDate(strDate) {
+        let result = '';
+              console.log("date 2",dateString);
+        if (dateString) {
+          let parts = dateString.split('-');
+          console.log("parts[0]",parts[0]);
+          console.log("parts[1]",parts[1]);
+          console.log("parts[2]",parts[2]);
+          result = `${parts[2]}/${parts[1]}/${parts[0]}`;
+          result_2 = `${parts[0]}-${parts[1]}-${parts[2]}`;
+          console.log("result2".result_2);
+          console.log("chaeck :",underAgeValidate(result_2));
+
+        }
+        return result;
+    }
+
+
+        //-------
+
+        // dateString=tranformDate(date);
+        // console.log("dateString",dateString);
+        // //Check whether valid dd/MM/yyyy Date Format.
+        // if (regex.test(dateString)) {
+        //     var parts = dateString.split("/");
+        //     var dtDOB = new Date(parts[1] + "/" + parts[0] + "/" + parts[2]);
+        //     var dtCurrent = new Date();
+        //     // lblError.innerHTML = "<br>Eligibility 18 years ONLY."
+        //     alert("Eligibility 18 years ONLY.")
+        //     if (dtCurrent.getFullYear() - dtDOB.getFullYear() < 18) {
+        //         return false;
+        //     }
+
+        //     if (dtCurrent.getFullYear() - dtDOB.getFullYear() == 18) {
+
+        //         //CD: 11/06/2018 and DB: 15/07/2000. Will turned 18 on 15/07/2018.
+        //         if (dtCurrent.getMonth() < dtDOB.getMonth()) {
+        //             return false;
+        //         }
+        //         if (dtCurrent.getMonth() == dtDOB.getMonth()) {
+        //             //CD: 11/06/2018 and DB: 15/06/2000. Will turned 18 on 15/06/2018.
+        //             if (dtCurrent.getDate() < dtDOB.getDate()) {
+        //                 return false;
+        //             }
+        //         }
+        //     }
+        //     lblError.innerHTML = "";
+        //     return true;
+        // } else {
+        //     // lblError.innerHTML = "Enter date in dd/MM/yyyy format ONLY."
+        //     alert("Enter date in dd/MM/yyyy format ONLY.")
+        //     return false;
+        // }
+    }
+
+    function underAgeValidate(birthday){
+      console.log("birthday",birthday);
+	// it will accept two types of format yyyy-mm-dd and yyyy/mm/dd
+	var optimizedBirthday = birthday.replace(/-/g, "/");
+
+	//set date based on birthday at 01:00:00 hours GMT+0100 (CET)
+	var myBirthday = new Date(optimizedBirthday);
+
+	// set current day on 01:00:00 hours GMT+0100 (CET)
+	var currentDate = new Date().toJSON().slice(0,10)+' 01:00:00';
+
+	// calculate age comparing current date and borthday
+	var myAge = ~~((Date.now(currentDate) - myBirthday) / (31557600000));
+      console.log("age",myAge);
+	if(myAge < 18) {
+    alert("Eligibility 18 years ONLY.")
+     	    return false;
+        }else{
+    // alert("Above  18+ years ")
+	    return true;
+	}
+
+}
+
+
+
+
+</script>
+</html>

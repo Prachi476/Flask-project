@@ -1,0 +1,113 @@
+<html>
+    <head>
+        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    
+     
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    
+    
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script> -->
+  
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js" type="text/javascript"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="Stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h2>Welcome   {{name}}</h2>
+
+
+
+        <form  method="POST2" action="/second_page">
+
+            <label for="amt_limi" >Amount limit :</label>
+            <!-- <input type="text" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57" class="form-control" id="amt_limi" placeholder="Enter Your Name" name="amt_limi" required>
+            <br> -->
+            <input type='text' id='numberbox' onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57" placeholder="Enter Amount Limit" style="
+            width: 243px;" name="amt_limi" required>
+            <br>
+            <br>
+            <br>
+        <!-- Duration Of Loan -->
+
+        <label for="dur_loan" >Duration of Loan (in Days) :</label>
+        <input type="text" class="form-control" id="dur_loan" placeholder="Duration of loan (in Days)" name="dur_loan" required>
+       
+        <br>
+        <br>
+        <br>
+        
+
+        <label for="rate_int" >Rate of Interse (% p.a) :</label>
+        <select id="rate_int" name= rate_int  method="GET" action="/">
+            {% for rate in rate_int %}
+            <option value= "{{rate}}" SELECTED>{{rate }}</option>"
+            {% endfor %}
+        </select>
+        <br>
+        <br>
+        <br>
+        <label for="datepicker" >Transaction Date :</label>
+        <input type="text" id="datepicker" placeholder="Select date here..." name="transc_date" >
+        
+        <br>
+        <br>
+        <br>
+        <!-- <p>Date: <input type="text" id="datepicker" /></p> -->
+
+
+        <!-- <input type="submit" name="second_page" class="btn btn-default" onclick="submit();">Submit</button> -->
+
+        <!-- <input type="submit" value="submit" onclick="return submit();" /> -->
+      
+         <input type="submit" value="submit" onclick="return foo();" />
+        </form>
+        
+    </body>
+    <script>
+         $('#numberbox').keyup(function(){
+            if ($(this).val() > 100000){
+              alert("Entered amount is above 1,00,000");
+            //   $(this).val('Enter amount less than 100000');
+              $(this).val('');
+            }
+          });
+
+     function submit()
+     {
+        //  alert("in submit function");
+         
+         return true;
+     }
+
+     function foo() {
+            // alert("Submit button clicked!");
+            $.get("/second_page").done(function(data) {
+    console.log("display images 2");
+  });
+            return true;
+         }
+
+         $(function() 
+         {
+          $( "#datepicker" ).datepicker(
+             {
+                maxDate: new Date() ,
+                todayHighlight: true,
+                dateFormat: 'dd/mm/yy' 
+            });
+          });
+
+  // $('#datepicker').datepicker({
+  //      todayBtn: "linked",
+  //      language: "it",
+  //      autoclose: true,
+  //      todayHighlight: true,
+  //      dateFormat: 'dd/mm/yy' 
+  //  });
+    </script>
+
+    </html>
